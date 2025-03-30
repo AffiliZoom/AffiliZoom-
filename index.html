@@ -1,0 +1,1913 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AffliZoom - Smart Home &amp; Automation Affiliate Shop</title>
+    <style>
+        /* Base styles */
+        :root {
+            --primary: #22c55e;
+            --primary-dark: #16a34a;
+            --secondary: #1e293b;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --accent: #6366f1;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        /* Header styles */
+        header {
+            background-color: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo-img {
+            height: 40px;
+            filter: drop-shadow(0 0 10px rgba(34, 197, 94, 0.5));
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #fff, var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            padding-top: 80px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+        
+        .hero-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 20px rgba(34, 197, 94, 0.3);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(34, 197, 94, 0.4);
+        }
+        
+        .hero-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: translateX(-100%);
+        }
+        
+        .hero-btn:hover::after {
+            animation: shine 1.5s infinite;
+        }
+        
+        @keyframes shine {
+            100% {
+                transform: translateX(100%);
+            }
+        }
+        
+        .hero-3d-element {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        /* Categories section */
+        .categories {
+            padding: 6rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--light), var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .category-card {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.9));
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+        }
+        
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                circle at var(--mouse-x, 0) var(--mouse-y, 0),
+                rgba(34, 197, 94, 0.15),
+                transparent 250px
+            );
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        
+        .category-card:hover::before {
+            opacity: 1;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .category-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            filter: drop-shadow(0 0 10px rgba(34, 197, 94, 0.3));
+        }
+        
+        .category-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .category-card p {
+            font-size: 0.95rem;
+            opacity: 0.7;
+            margin-bottom: 1.5rem;
+        }
+        
+        .category-btn {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary);
+            font-weight: 600;
+            gap: 0.5rem;
+            transition: gap 0.3s;
+        }
+        
+        .category-btn:hover {
+            gap: 0.75rem;
+        }
+        
+        /* Products section */
+        .products {
+            padding: 6rem 0;
+        }
+        
+        .products-filter {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+        }
+        
+        .filter-btn {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--light);
+            padding: 0.5rem 1.25rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .filter-btn:hover:not(.active) {
+            background: rgba(34, 197, 94, 0.1);
+            border-color: var(--primary);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .product-card {
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .product-image-container {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+        
+        .product-menu {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s;
+        }
+        
+        .product-menu:hover {
+            background: var(--primary);
+        }
+        
+        .product-menu-dots {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        
+        .product-menu-dots span {
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+        }
+        
+        .product-tooltip {
+            position: absolute;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.85rem;
+            max-width: 200px;
+            transform: translateY(10px);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .product-menu:hover + .product-tooltip {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .product-content {
+            padding: 1.5rem;
+        }
+        
+        .product-category {
+            font-size: 0.75rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+        
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+        }
+        
+        .current-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .original-price {
+            font-size: 1rem;
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+        
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+        }
+        
+        .stars {
+            display: flex;
+            color: gold;
+        }
+        
+        .rating-count {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+        
+        .product-btn {
+            display: inline-block;
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .product-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        /* Newsletter section */
+        .newsletter {
+            padding: 6rem 0;
+            background: linear-gradient(to bottom, var(--dark), var(--secondary));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .newsletter::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(34, 197, 94, 0.1), transparent 25%),
+                radial-gradient(circle at 90% 80%, rgba(99, 102, 241, 0.1), transparent 25%);
+            pointer-events: none;
+        }
+        
+        .newsletter-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .newsletter h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .newsletter p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+        
+        .newsletter-form {
+            width: 100%;
+            position: relative;
+        }
+        
+        .newsletter-input {
+            width: 100%;
+            padding: 1rem;
+            padding-right: 10rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(15, 23, 42, 0.9);
+            color: var(--light);
+            font-size: 1rem;
+        }
+        
+        .newsletter-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            bottom: 5px;
+            padding: 0 1.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .newsletter-btn:hover {
+            background: var(--primary-dark);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            padding: 4rem 0 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-logo {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .footer-logo img {
+            height: 50px;
+            width: auto;
+        }
+        
+        .footer-logo p {
+            font-size: 0.95rem;
+            opacity: 0.7;
+            max-width: 25ch;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background: var(--primary);
+        }
+        
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .footer-links a {
+            color: var(--light);
+            opacity: 0.7;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+            opacity: 1;
+            transform: translateX(3px);
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+        
+        .social-icon:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        .footer-bottom-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .footer-bottom-links a {
+            color: var(--light);
+            text-decoration: none;
+        }
+        
+        .footer-bottom-links a:hover {
+            color: var(--primary);
+        }
+        
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .modal-content {
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: var(--secondary);
+            border-radius: 1rem;
+            position: relative;
+            transform: translateY(20px);
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: white;
+            font-size: 1.25rem;
+        }
+        
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+        
+        .product-modal {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .product-modal-images {
+            position: relative;
+        }
+        
+        .product-modal-main-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .product-modal-thumbnails {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .product-modal-thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .product-modal-thumbnail.active {
+            border-color: var(--primary);
+        }
+        
+        .product-modal-thumbnail:hover:not(.active) {
+            transform: translateY(-3px);
+        }
+        
+        .product-modal-info {
+            padding: 2rem;
+        }
+        
+        .product-modal-category {
+            font-size: 0.85rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-modal-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .product-modal-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .product-modal-price {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .product-modal-current-price {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .product-modal-original-price {
+            font-size: 1.25rem;
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+        
+        .product-modal-description {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .product-modal-features {
+            margin-bottom: 2rem;
+        }
+        
+        .product-modal-features h4 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        
+        .features-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .feature-icon {
+            color: var(--primary);
+        }
+        
+        .product-modal-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .product-modal-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .buy-now-btn {
+            background: var(--primary);
+            color: white;
+            flex: 1;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .buy-now-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+        
+        .add-wishlist-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+            width: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .add-wishlist-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 1024px) {
+            .product-modal {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .footer-bottom-links {
+                justify-content: center;
+            }
+        }
+        
+        /* Glowing effects and animations */
+        .glow {
+            position: absolute;
+            background: radial-gradient(circle, var(--primary), transparent 70%);
+            opacity: 0.1;
+            border-radius: 50%;
+            animation: pulse 4s infinite alternate;
+            z-index: -1;
+        }
+        
+        .glow-1 {
+            top: 20%;
+            left: 10%;
+            width: 300px;
+            height: 300px;
+        }
+        
+        .glow-2 {
+            bottom: 10%;
+            right: 5%;
+            width: 500px;
+            height: 500px;
+        }
+        
+        .glow-3 {
+            top: 60%;
+            left: 30%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--accent), transparent 70%);
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.05;
+            }
+            100% {
+                transform: scale(1.1);
+                opacity: 0.15;
+            }
+        }
+        
+        /* 3D product animation */
+        .product-card.anim-hover {
+            transition: transform 0.5s;
+            transform-style: preserve-3d;
+        }
+        
+        /* Mobile menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 400px;
+            height: 100%;
+            background: var(--secondary);
+            z-index: 200;
+            transition: all 0.3s;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+        
+        .mobile-menu.active {
+            right: 0;
+        }
+        
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .mobile-menu-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .mobile-menu-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .mobile-menu-nav a {
+            color: var(--light);
+            text-decoration: none;
+            font-size: 1.25rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 199;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <svg class="logo-img" viewBox="0 0 100 100" width="40" height="40">
+                    <path d="M20,40 L40,20 L40,80 L20,60 Z" fill="#1e293b"></path>
+                    <path d="M40,20 L60,20 L60,80 L40,80 Z" fill="#f8fafc"></path>
+                    <path d="M60,20 L80,40 L80,60 L60,80 Z" fill="#22c55e"></path>
+                </svg>
+                <span class="logo-text">AffliZoom</span>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#categories">Categories</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="logo">
+                <svg viewBox="0 0 100 100" width="40" height="40">
+                    <path d="M20,40 L40,20 L40,80 L20,60 Z" fill="#1e293b"></path>
+                    <path d="M40,20 L60,20 L60,80 L40,80 Z" fill="#f8fafc"></path>
+                    <path d="M60,20 L80,40 L80,60 L60,80 Z" fill="#22c55e"></path>
+                </svg>
+                <span class="logo-text">AffliZoom</span>
+            </div>
+            
+            <button class="mobile-menu-close" id="mobile-menu-close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        
+        <nav class="mobile-menu-nav">
+            <a href="#home">Home</a>
+            <a href="#categories">Categories</a>
+            <a href="#products">Products</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </div>
+    
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+    
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <h1>Smart Home Innovation at Your Fingertips</h1>
+            <p>Discover the latest smart home devices that transform your living space into an automated haven of comfort, convenience, and cutting-edge technology.</p>
+            <a href="#products" class="hero-btn">Explore Products</a>
+        </div>
+        
+        <div id="canvas-container" class="hero-3d-element"></div>
+        
+        <!-- Glowing effects -->
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+        <div class="glow glow-3"></div>
+    </section>
+    
+    <!-- Categories Section -->
+    <section class="categories" id="categories">
+        <div class="container">
+            <div class="section-title">
+                <h2>Browse Categories</h2>
+            </div>
+            
+            <div class="categories-grid">
+                <!-- Category 1 -->
+                <div class="category-card" data-category="smart-cleaning">
+                    <div class="category-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                        </svg>
+                    </div>
+                    <h3>Smart Cleaning &amp; Maintenance</h3>
+                    <p>Automate your home cleaning with smart robot vacuums, mops, and maintenance systems.</p>
+                    <div class="category-btn">
+                        Explore
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </div>
+                </div>
+                
+                <!-- Category 2 -->
+                <div class="category-card" data-category="connected-living">
+                    <div class="category-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
+                            <rect x="9" y="9" width="6" height="6"></rect>
+                            <line x1="9" y1="1" x2="9" y2="4"></line>
+                            <line x1="15" y1="1" x2="15" y2="4"></line>
+                            <line x1="9" y1="20" x2="9" y2="23"></line>
+                            <line x1="15" y1="20" x2="15" y2="23"></line>
+                            <line x1="20" y1="9" x2="23" y2="9"></line>
+                            <line x1="20" y1="14" x2="23" y2="14"></line>
+                            <line x1="1" y1="9" x2="4" y2="9"></line>
+                            <line x1="1" y1="14" x2="4" y2="14"></line>
+                        </svg>
+                    </div>
+                    <h3>Connected Living &amp; Core Tech</h3>
+                    <p>Essential smart home hubs, speakers, displays, and control systems for your connected lifestyle.</p>
+                    <div class="category-btn">
+                        Explore
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </div>
+                </div>
+                
+                <!-- Category 3 -->
+                <div class="category-card" data-category="intelligent-kitchen">
+                    <div class="category-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                            <line x1="6" y1="1" x2="6" y2="4"></line>
+                            <line x1="10" y1="1" x2="10" y2="4"></line>
+                            <line x1="14" y1="1" x2="14" y2="4"></line>
+                        </svg>
+                    </div>
+                    <h3>Intelligent Kitchen &amp; Culinary Tech</h3>
+                    <p>Transform your cooking experience with smart appliances, recipe assistants, and kitchen gadgets.</p>
+                    <div class="category-btn">
+                        Explore
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </div>
+                </div>
+                
+                <!-- Category 4 -->
+                <div class="category-card" data-category="garden-oasis">
+                    <div class="category-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                    </div>
+                    <h3>Automated Outdoor &amp; Garden Oasis</h3>
+                    <p>Smart sprinkler systems, robotic lawn mowers, and outdoor lighting for your garden paradise.</p>
+                    <div class="category-btn">
+                        Explore
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </div>
+                </div>
+                
+                <!-- Category 5 -->
+                <div class="category-card" data-category="smart-design">
+                    <div class="category-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Smart Home Design &amp; Aesthetics</h3>
+                    <p>Beautiful smart decor, lighting, and design elements that enhance your home's appearance.</p>
+                    <div class="category-btn">
+                        Explore
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <div class="container">
+            <div class="section-title">
+                <h2>Featured Smart Home Products</h2>
+            </div>
+            
+            <div class="products-filter">
+                <button class="filter-btn active" data-filter="all">All Products</button>
+                <button class="filter-btn" data-filter="smart-cleaning">Smart Cleaning</button>
+                <button class="filter-btn" data-filter="connected-living">Connected Living</button>
+                <button class="filter-btn" data-filter="intelligent-kitchen">Intelligent Kitchen</button>
+                <button class="filter-btn" data-filter="garden-oasis">Garden Oasis</button>
+                <button class="filter-btn" data-filter="smart-design">Smart Design</button>
+            </div>
+            
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card" data-category="smart-cleaning">
+                    <div class="product-image-container">
+                        <img src="https://placehold.co/600x400/22c55e/ffffff?text=Smart+Vacuum" alt="Smart Robot Vacuum" class="product-image">
+                        <div class="product-menu">
+                            <div class="product-menu-dots">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="product-tooltip">
+                            EcoVac Pro 3000 - Advanced AI-powered robot vacuum with self-cleaning base
+                        </div>
+                    </div>
+                    <div class="product-content">
+                        <div class="product-category">Smart Cleaning</div>
+                        <h3 class="product-title">EcoVac Pro 3000</h3>
+                        <div class="product-price">
+                            <span class="current-price">$499.99</span>
+                            <span class="original-price">$599.99</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                </svg>
+                            </div>
+                            <span class="rating-count">(128)</span>
+                        </div>
+                        <a href="#" class="product-btn">View Product</a>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card" data-category="connected-living">
+                    <div class="product-image-container">
+                        <img src="https://placehold.co/600x400/22c55e/ffffff?text=Smart+Hub" alt="Smart Home Hub" class="product-image">
+                        <div class="product-menu">
+                            <div class="product-menu-dots">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="product-tooltip">
+                            HomeCore Hub Pro - Central smart home controller with voice assistant
+                        </div>
+                    </div>
+                    <div class="product-content">
+                        <div class="product-category">Connected Living</div>
+                        <h3 class="product-title">HomeCore Hub Pro</h3>
+                        <div class="product-price">
+                            <span class="current-price">$249.99</span>
+                            <span class="original-price">$299.99</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                </svg>
+                            </div>
+                            <span class="rating-count">(86)</span>
+                        </div>
+                        <a href="#" class="product-btn">View Product</a>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card" data-category="intelligent-kitchen">
+                    <div class="product-image-container">
+                        <img src="https://placehold.co/600x400/22c55e/ffffff?text=Smart+Oven" alt="Smart Oven" class="product-image">
+                        <div class="product-menu">
+                            <div class="product-menu-dots">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="product-tooltip">
+                            ChefMaster Pro - AI-powered smart oven with recipe recognition
+                        </div>
+                    </div>
+                    <div class="product-content">
+                        <div class="product-category">Intelligent Kitchen</div>
+                        <h3 class="product-title">ChefMaster Pro</h3>
+                        <div class="product-price">
+                            <span class="current-price">$699.99</span>
+                            <span class="original-price">$849.99</span>
+                        </div>
+                        <div class="product-rating">
+                            <div class="stars">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                </svg>
+                            </div>
+                            <span class="rating-count">(42)</span>
+                        </div>
+                        <a href="#" class="product-btn">View Product</a>
+                    </div>
+                </div>
+                
+                <!-- Add more products here -->
+            </div>
+        </div>
+    </section>
+    
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container newsletter-content">
+            <h2>Stay Updated with Smart Home Innovations</h2>
+            <p>Subscribe to our newsletter and get exclusive offers, product updates, and smart home tips delivered to your inbox.</p>
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Your email address" required="">
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <svg viewBox="0 0 100 100" width="50" height="50">
+                        <path d="M20,40 L40,20 L40,80 L20,60 Z" fill="#1e293b"></path>
+                        <path d="M40,20 L60,20 L60,80 L40,80 Z" fill="#f8fafc"></path>
+                        <path d="M60,20 L80,40 L80,60 L60,80 Z" fill="#22c55e"></path>
+                    </svg>
+                    <p>Your ultimate destination for smart home automation and cutting-edge technology.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Categories</h3>
+                    <ul class="footer-links">
+                        <li>
+                            <a href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                                Smart Cleaning
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                                Connected Living
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                                Intelligent Kitchen
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                                Garden Oasis
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                                Smart Design
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Information</h3>
+                    <ul class="footer-links">
+                        <li>
+                            <a href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                                About Us
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                                Blog
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                                Contact
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                                FAQ
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Policies</h3>
+                    <ul class="footer-links">
+                        <li>
+                            <a href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                                Privacy Policy
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                                Terms of Service
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                                Cookie Policy
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                                Affiliate Disclosure
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="copyright">
+                    © 2025 AffliZoom. All rights reserved.
+                </div>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Product Modal -->
+    <div class="modal" id="product-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            
+            <div class="product-modal">
+                <div class="product-modal-images">
+                    <img src="https://placehold.co/800x600/22c55e/ffffff?text=Product+Image" alt="Product Image" class="product-modal-main-image">
+                    <div class="product-modal-thumbnails">
+                        <img src="https://placehold.co/800x600/22c55e/ffffff?text=Image+1" alt="Thumbnail 1" class="product-modal-thumbnail active">
+                        <img src="https://placehold.co/800x600/1e293b/ffffff?text=Image+2" alt="Thumbnail 2" class="product-modal-thumbnail">
+                        <img src="https://placehold.co/800x600/6366f1/ffffff?text=Image+3" alt="Thumbnail 3" class="product-modal-thumbnail">
+                        <img src="https://placehold.co/800x600/0f172a/ffffff?text=Image+4" alt="Thumbnail 4" class="product-modal-thumbnail">
+                    </div>
+                </div>
+                
+                <div class="product-modal-info">
+                    <div class="product-modal-category">Smart Cleaning</div>
+                    <h2 class="product-modal-title">EcoVac Pro 3000</h2>
+                    <div class="product-modal-rating">
+                        <div class="stars">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                            </svg>
+                        </div>
+                        <span class="rating-count">(128 reviews)</span>
+                    </div>
+                    <div class="product-modal-price">
+                        <span class="product-modal-current-price">$499.99</span>
+                        <span class="product-modal-original-price">$599.99</span>
+                    </div>
+                    <p class="product-modal-description">
+                        The EcoVac Pro 3000 is an advanced AI-powered robot vacuum with a self-cleaning base that revolutionizes home cleaning. With powerful suction, intelligent mapping, and voice control compatibility, it makes keeping your floors spotless effortless.
+                    </p>
+                    <div class="product-modal-features">
+                        <h4>Key Features</h4>
+                        <div class="features-list">
+                            <div class="feature-item">
+                                <span class="feature-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                </span>
+                                Self-emptying dock
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                </span>
+                                Advanced 3D mapping
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                </span>
+                                Object recognition
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                </span>
+                                Voice assistant compatible
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                </span>
+                                App control with scheduling
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                </span>
+                                3-stage cleaning system
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-modal-actions">
+                        <a href="YOUR-AFFILIATE-LINK-HERE" class="product-modal-btn buy-now-btn">Buy Now</a>
+                        <button class="product-modal-btn add-wishlist-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript for interactions -->
+    <script>
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            mobileMenuOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            mobileMenuOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        mobileMenuClose.addEventListener('click', closeMobileMenu);
+        mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+        
+        // Category cards hover effect
+        const categoryCards = document.querySelectorAll('.category-card');
+        
+        categoryCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                card.style.setProperty('--mouse-x', x + 'px');
+                card.style.setProperty('--mouse-y', y + 'px');
+            });
+        });
+        
+        // Product filtering
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const productCards = document.querySelectorAll('.product-card');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const filter = btn.getAttribute('data-filter');
+                
+                // Filter products
+                productCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Product modal functionality
+        const modal = document.getElementById('product-modal');
+        const modalClose = document.getElementById('modal-close');
+        const productBtns = document.querySelectorAll('.product-btn');
+        
+        productBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        modalClose.addEventListener('click', () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Product thumbnails
+        const thumbnails = document.querySelectorAll('.product-modal-thumbnail');
+        const mainImage = document.querySelector('.product-modal-main-image');
+        
+        thumbnails.forEach(thumbnail => {
+            thumbnail.addEventListener('click', () => {
+                // Update active thumbnail
+                thumbnails.forEach(t => t.classList.remove('active'));
+                thumbnail.classList.add('active');
+                
+                // Update main image
+                mainImage.src = thumbnail.src;
+            });
+        });
+        
+        // 3D card effect
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.product-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mousemove', e => {
+                    const cardRect = card.getBoundingClientRect();
+                    const cardCenterX = cardRect.left + cardRect.width / 2;
+                    const cardCenterY = cardRect.top + cardRect.height / 2;
+                    
+                    const mouseX = e.clientX - cardCenterX;
+                    const mouseY = e.clientY - cardCenterY;
+                    
+                    // Calculate rotation values (limited to +/- 10 degrees)
+                    const rotateY = mouseX * 0.05;
+                    const rotateX = -mouseY * 0.05;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+                });
+            });
+        });
+        
+        // Import and initialize Three.js for 3D element
+        function init3DElement() {
+            // This would be replaced with actual Three.js code in a real implementation
+            const canvasContainer = document.getElementById('canvas-container');
+            if (canvasContainer) {
+                const canvas = document.createElement('canvas');
+                canvas.style.width = '100%';
+                canvas.style.height = '100%';
+                canvasContainer.appendChild(canvas);
+                
+                // Placeholder for Three.js animation - in real implementation, you would add your Three.js code here
+                const ctx = canvas.getContext('2d');
+                canvas.width = canvasContainer.clientWidth;
+                canvas.height = canvasContainer.clientHeight;
+                
+                function animate() {
+                    canvas.width = canvasContainer.clientWidth;
+                    canvas.height = canvasContainer.clientHeight;
+                    
+                    // Simple placeholder animation
+                    const time = Date.now() * 0.001;
+                    const centerX = canvas.width / 2;
+                    const centerY = canvas.height / 2;
+                    
+                    // Create a radial gradient
+                    const gradient = ctx.createRadialGradient(
+                        centerX, centerY, 0,
+                        centerX, centerY, canvas.width * 0.4
+                    );
+                    
+                    gradient.addColorStop(0, 'rgba(34, 197, 94, 0.2)');
+                    gradient.addColorStop(1, 'rgba(34, 197, 94, 0)');
+                    
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Draw some animated shapes
+                    for (let i = 0; i < 5; i++) {
+                        const size = 50 + Math.sin(time + i) * 20;
+                        const x = centerX + Math.cos(time * 0.5 + i * 1.5) * centerX * 0.5;
+                        const y = centerY + Math.sin(time * 0.5 + i * 1.5) * centerY * 0.3;
+                        
+                        ctx.beginPath();
+                        ctx.fillStyle = `rgba(34, 197, 94, ${0.1 + Math.sin(time + i) * 0.05})`;
+                        ctx.arc(x, y, size, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                    
+                    requestAnimationFrame(animate);
+                }
+                
+                animate();
+            }
+        }
+        
+        // Initialize 3D element when the page loads
+        window.addEventListener('load', init3DElement);
+    </script>
+
+
+</body></html>
